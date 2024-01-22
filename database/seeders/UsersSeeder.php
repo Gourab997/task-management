@@ -16,6 +16,13 @@ class UsersSeeder extends Seeder
     public function run()
     {
         $users = [
+            [
+                'first_name' => 'Gourab',
+                'last_name' => 'Ghosh',
+                'email' => 'gourab@gamil.com',
+                'password'=>bcrypt('123456789'),
+                'phone' => '123456789',
+            ],
         ];
 
         foreach ($users as $user) {

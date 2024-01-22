@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
-class FUserController extends Controller
+class UserController extends Controller
 {
     private UserService $userService;
 

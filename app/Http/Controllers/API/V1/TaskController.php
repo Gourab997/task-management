@@ -82,9 +82,12 @@ class TaskController extends Controller
      * @param  \App\Models\Task  $task
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Task $task)
+    public function update(Request $request, int $id)
     {
-        //
+        $validator = \Validator::make($request->all(), [
+            'status' => 'required|string|min:2',
+        ])->validate();
+        return $this->taskService->update($request->all(), $id);
     }
 
     /**
@@ -93,8 +96,8 @@ class TaskController extends Controller
      * @param  \App\Models\Task  $task
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Task $task)
+    public function destroy(int $id)
     {
-        //
+        return $this->taskService->destroy($id);
     }
 }

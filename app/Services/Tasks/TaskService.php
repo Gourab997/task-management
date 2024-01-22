@@ -20,6 +20,16 @@ class TaskService
            return $this->taskRepositoryInterface->store($sortData);
        }
 
+       public function update($data,$id)
+       {
+           return $this->taskRepositoryInterface->update($data,$id);
+       }
+
+         public function destroy($id)
+         {
+              return $this->taskRepositoryInterface->delete($id);
+         }
+
 
        private function makeData($data)
        {

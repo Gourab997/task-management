@@ -32,7 +32,8 @@ Route::group(['middleware' => 'api'], function ($routes) {
     Route::put('/update-password', [UserController::class, 'updatePassword']);
 
     Route::get('/tasks', [TaskController::class, 'index']);
-    Route::get('/tasks/{id}', [TaskController::class, 'show']);
-    Route::post('/tasks', [TaskController::class, 'store']);
-    Route::delete('/tasks/{id}', [TaskController::class, 'destroy']);
+    Route::get('/task/{id}', [TaskController::class, 'show']);
+    Route::put('/task/status-change/{id}', [TaskController::class, 'update']);
+    Route::post('/task', [TaskController::class, 'store']);
+    Route::delete('/task/{id}', [TaskController::class, 'destroy']);
 });

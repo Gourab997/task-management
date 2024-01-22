@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\API\V1\UserController;
+use App\Http\Controllers\API\V1\TaskController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,7 +28,11 @@ Route::group(['middleware' => 'api'], function ($routes) {
     Route::get('/profile', [UserController::class, 'profile']);
     Route::get('/refresh-token', [UserController::class, 'refreshToken']);
     Route::get('/logout', [UserController::class, 'logout']);
-    Route::post('/registration', [UserController::class, 'register']);
     Route::put('/update-profile', [UserController::class, 'updateProfile']);
     Route::put('/update-password', [UserController::class, 'updatePassword']);
+
+    Route::get('/tasks', [TaskController::class, 'index']);
+    Route::get('/tasks/{id}', [TaskController::class, 'show']);
+    Route::post('/tasks', [TaskController::class, 'store']);
+    Route::delete('/tasks/{id}', [TaskController::class, 'destroy']);
 });

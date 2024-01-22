@@ -2,7 +2,7 @@
 
 namespace App\Repositories\Interfaces;
 
-interface UserRepositoryInterface
+interface TaskRepositoryInterface
 {
     public function all();
 

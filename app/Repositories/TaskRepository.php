@@ -6,6 +6,7 @@ namespace App\Repositories;
 use App\Http\Resources\TaskResource;
 use App\Models\Task;
 use App\Repositories\Interfaces\TaskRepositoryInterface;
+use Illuminate\Support\Facades\Cache;
 
 class TaskRepository extends BaseRepository implements TaskRepositoryInterface
 {
@@ -42,7 +43,27 @@ class TaskRepository extends BaseRepository implements TaskRepositoryInterface
     public function show(int $id)
     {
         try {
-            $task = $this->model::where('id', $id)->first();
+            $task = Cache::remember('task_' . $id, now()->addMinutes(60), function () use ($id) {
+                return $this->model::find($id);
+            });
+
+            if (!$task) {
+                return response()->error('Task not found', 404);
+            }
+
+            $cacheKey = 'task_' . $id . '_updated_at';
+            $lastUpdatedAt = Cache::get($cacheKey);
+
+            if (!$lastUpdatedAt || $lastUpdatedAt < $task->updated_at) {
+                $imagePath = public_path('images/' . $task->image);
+                $imageFile = file_get_contents($imagePath);
+                $imageBase64 = base64_encode($imageFile);
+                $task->image = $imageBase64;
+
+                Cache::put('task_' . $id, $task, now()->addMinutes(60));
+
+                Cache::put($cacheKey, $task->updated_at, now()->addMinutes(60));
+            }
 
             return response()->success(new TaskResource($task), 'Task Details');
         } catch (\Exception $e) {

@@ -30,6 +30,11 @@ class TaskService
               return $this->taskRepositoryInterface->delete($id);
          }
 
+            public function show($id)
+            {
+                return $this->taskRepositoryInterface->show($id);
+            }
+
 
        private function makeData($data)
        {

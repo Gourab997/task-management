@@ -24,6 +24,8 @@ class TaskRepository extends BaseRepository implements TaskRepositoryInterface
     {
         try {
             // manage image
+            //storage::putFile('images',$request->file('image'));
+            //storage::get('images');
 
             if (request()->hasFile('image')) {
                 $image = request()->file('image');
@@ -73,6 +75,7 @@ class TaskRepository extends BaseRepository implements TaskRepositoryInterface
 
     public function update(array $data, int $id)
     {
+        //laravel save event
         try {
             $task = $this->model::find($id);
 
